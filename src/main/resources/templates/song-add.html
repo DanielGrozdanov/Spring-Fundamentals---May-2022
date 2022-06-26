@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add song</span></h1>
+    <hr class="hr-3 w-25 bg-white"/>
+
+    <form class="mx-auto w-25 bg-blur rounded"
+          th:method="post"
+          th:action="@{/song/add/}"
+          th:object="${addSongDTO}">
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="performer" class="h4 mb-2">Performer</label>
+            </div>
+            <input type="text" class="form-control"
+                   id="performer"
+                   th:field="*{performer}"
+                   th:errorclass="'is-invalid bg-danger'"
+                   name="performer"/>
+            <small class="text-light invalid-feedback bg-danger text-danger">Performer name length must be between 3 and 20 characters!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder textCol d-flex justify-content-center">
+                <label for="title" class="h4 mb-2 text-white">Title</label>
+            </div>
+            <input type="text" class="form-control"
+                   id="title"
+                   th:field="*{title}"
+                   th:errorclass="'is-invalid bg-danger'"
+                   name="title"/>
+            <small class="text-light invalid-feedback bg-danger text-danger">Title length must be between 2 and 20 characters !</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="releaseDate" class="h4 mb-2">Release date</label>
+            </div>
+            <input type="date" class="form-control"
+                   id="releaseDate"
+                   th:field="*{releaseDate}"
+                   th:errorclass="'is-invalid bg-danger'"
+                   name="releaseDate"/>
+            <small class="text-light invalid-feedback bg-danger text-danger">The date cannot be in the future!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="duration" class="h4 mb-2">Duration in seconds</label>
+            </div>
+            <input type="number" step="1" class="form-control"
+                   id="duration"
+                   th:field="*{duration}"
+                   th:errorclass="'is-invalid bg-danger'"
+                   name="duration"/>
+            <small class="text-light invalid-feedback bg-danger text-danger">The duration must be a positive number!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="style" class="h4 mb-2">Style</label>
+            </div>
+
+            <select class="browser-default custom-select" id="style" name="style">
+                <option th:each="s :${T(com.example.spotifyplaylistapp.model.entity.enums.StyleEnum).values()}"
+                        th:text="${s}" th:value="${s}" value="">Select style</option>
+            </select>
+            <small class="text-light invalid-feedback bg-danger text-danger">Select a valid Style!</small>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-warning  mb-3" value="Register">Add song</button>
+        </div>
+
+    </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
